@@ -91,25 +91,27 @@ def visit_all_pages():  # analyses subpages for new hosts
             get_page_content(link)
 
 
-url = str(input("Input the URL of your staring page"))
-path = get_date('%Y-%m-%d_%H-%M-%S')
+def runWebcrawler():
+    url = str(input("Input the URL of your staring page:\n"))
+    path = get_date('%Y-%m-%d_%H-%M-%S')
 
-get_page_content(url)
+    get_page_content(url)
 
-for i in range(0, levels):
-    visit_all_pages()
+    for i in range(0, levels):
+        visit_all_pages()
 
-i = 0
-file = open(path + '_log.txt', 'w')
+    i = 0
+    file = open(path + '_log.txt', 'w')
 
-for host in hosts:
-    i += 1
-    command = get_command(host) + " > " + create_filename(host, path)
-    timestamp = get_date('%H:%M:%S')
-    print('[' + timestamp + ']   ' + "Scanning: " + host)
-    file.write('[' + timestamp + ']   ' + "Scanning: " + host + '\n')
-    os.system(command)
-    # create_filename(host)
-    print("Scanned " + host + ". " + str(len(hosts) - i) + " remaining.")
-print('Scanning complete. ' + str(len(links)) + " links were found and " + str(i) + " hosts were checked for TLS.")
-file.write('Scanning complete. ' + str(len(links)) + " links were found and " + str(i) + " hosts were checked for TLS.")
+    for host in hosts:
+        i += 1
+        command = get_command(host) + " > " + create_filename(host, path)
+        timestamp = get_date('%H:%M:%S')
+        print('[' + timestamp + ']   ' + "Scanning: " + host)
+        file.write('[' + timestamp + ']   ' + "Scanning: " + host + '\n')
+        os.system(command)
+        # create_filename(host)
+        print("Scanned " + host + ". " + str(len(hosts) - i) + " remaining.")
+    print('Scanning complete. ' + str(len(links)) + " links were found and " + str(i) + " hosts were checked for TLS.")
+    file.write(
+        'Scanning complete. ' + str(len(links)) + " links were found and " + str(i) + " hosts were checked for TLS.")

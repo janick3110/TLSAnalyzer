@@ -28,6 +28,7 @@ def find_tls_in_script(file, string_to_search):
                 if format_text(text) in found_ciphers:
                     print("Already added")
             else:
+                text = ""
                 print("Nothing found")
                 list_of_results.append((line_number, text))
     # Return list of tuples containing line numbers and lines where string is found
@@ -38,9 +39,12 @@ def format_text(text):
     return first_a
 
 
-os.chdir(pathlib.Path(__file__).parent.absolute())
-for file in glob.glob("*.txt"):
-    find_tls_in_script(file, 'TLS_')
 
-for cipher in found_ciphers:
-    print(cipher)
+def runAnalyzer():
+    os.chdir(pathlib.Path(__file__).parent.absolute())
+    print(glob.glob("*.txt"))
+    for file in glob.glob("*.txt"):
+        find_tls_in_script(file, 'TLS_')
+
+    for cipher in found_ciphers:
+        print(cipher)
